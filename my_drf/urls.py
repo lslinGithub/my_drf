@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include(('app_02.urls', 'app_02'), namespace='app_02')),
     path('', include(('app_03.urls', 'app_03'), namespace='app_03')),
     path('', include(('app_04.urls', 'app_04'), namespace='app_04')),
+    path('', include(('app_05.urls', 'app_05'), namespace='app_05')),
     path('api/', include(app_01_router.urls))  # 创建完成的router对象使用include加入路由表
     # 遇见的问题是注册在根路由的router.urls才能实现完整Hyp...Serializer，不然要在Modelviewset中额外指定url参数
 ]

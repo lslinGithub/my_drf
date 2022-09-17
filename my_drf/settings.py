@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+import datetime
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -26,7 +27,6 @@ SECRET_KEY = 'django-insecure-e6_588k=2r_1brq2+abp_zj4779wno80oui!0_ggt1!)yqi+2q
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'app_02',
     'app_03',
     'app_04',
+    'app_05',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -75,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_drf.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -85,7 +86,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -105,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -117,7 +116,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -127,3 +125,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# settings 里面设置全局认证和权限
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',  # 配置验证方式为Token验证
+    ),
+    # 'DEFAULT_AUTHENTICATION_PERMISSION_CLASSS':('xxx')
+    # 节流全局配置
+    'DEFAULT_THROTTLE_CLASSES': ['app_05.throttlings.UserThrottling', ],
+    'DEFAULT_THROTTLE_RATES': {
+        '未认证用户': '3/m',
+        '已认证用户': '5/m',
+    },
+}
+# JWT 认证配置
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),  # Token 过期时间为一周
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',  # Token的头为：JWT adashkjdhaskjhd21312312
+    'JWT_ALLOW_REFRESH': False,
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'app_05.utils.jwt_response_payload_handler',
+}
