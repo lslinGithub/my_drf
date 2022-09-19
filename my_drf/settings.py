@@ -148,6 +148,8 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10
     # 自动生成接口文档配置
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    # 异常处理器
+    'EXCEPTION_HANDLER': 'app06.custom_exception.custom_exception_handler',
 }
 # JWT 认证配置
 JWT_AUTH = {
