@@ -18,6 +18,14 @@ class CarsView(APIView):
     # 节流
     throttle_classes = [VisitThrottle]
 
+    # 版本
+    versioning_class = ()
+
+    # 分页
+    # pagination_class = ()
+
+    # 解析器
+    # parser_classes = []
     def get(self, request, *args, **kwargs):
         ctx = {
             "code": 1,
@@ -30,6 +38,7 @@ class CarsView(APIView):
             }
         }
         return JsonResponse(ctx)
+
 
 # 自定义认证
 # from rest_framework.views import APIView
@@ -76,3 +85,31 @@ class CarsView(APIView):
 #     if not obj:
 #         raise exceptions.AuthenticationFailed('用户认证失败')
 #     return (obj.user, obj)
+
+class VersionView(APIView):
+    def get(self, request, *args, **kwargs):
+        print(request.version)
+        if request.version == 'v1':
+            ctx = {
+                "code": 1,
+                "msg": "ok",
+                "data": {}
+            }
+            return JsonResponse(ctx)
+        elif request.version == 'v2':
+            ctx = {
+                "code": 2,
+                "msg": "ok",
+                "data": {}
+            }
+            # 获取版本
+            print(request.version)
+            # 获取版本管理的类
+            print(request.versioning_scheme)
+            # 反向生成URL
+            reverse_url = request.versioning_scheme.reverse('app_05:version-view', request=request)
+            print(reverse_url)
+            return JsonResponse(ctx)
+
+
+

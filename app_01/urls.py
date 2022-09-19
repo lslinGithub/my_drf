@@ -25,3 +25,4 @@ from rest_framework.routers import DefaultRouter
 urlpatterns = [
     # path('api/', include(router.urls))  # 创建完成的router对象使用include加入路由表
 ]
+

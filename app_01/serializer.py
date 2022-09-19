@@ -12,3 +12,4 @@ class StudentSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Student
         fields = '__all__'
+

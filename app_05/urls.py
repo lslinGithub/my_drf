@@ -7,4 +7,5 @@ urlpatterns = [
     path('cars/', views.CarsView.as_view(), name='cars-list'),
     # path('api-token-auth/', token_views.obtain_auth_token),
     path('api-token-auth/', obtain_jwt_token),
+    path('<str:version>/kk/', views.VersionView.as_view(), name='version-view'),
 ]

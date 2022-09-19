@@ -35,14 +35,14 @@ class BaseArticleSerializer(serializers.Serializer):
 #         fields = '__all__'
 
 
-# 基本模型序列化
+# 基本字段
 # 1.serializers.StringRelatedField() # 以打印方式显示
 # 2.serializers.PrimaryKeyRelatedField()
 # 3.HyperlinkedRelatedField` requires the request in the serializer context.
 # Add `context={'request': request}`
 # category = serializers.HyperlinkedRelatedField(
 #         view_name='app_02:category-detail', # 指定路由
-#         read_only=True, # 不设置queryser,就设置read_only = True
+#         read_only=True, # 不设置queryset,就设置read_only = True
 #         # lookup_field='pk' # 查找字段，默认为pk，也就是路由写的字段参数
 #     )
 # 4.serializers.SlugRelatedField() # 将返回一个指定对应关系 model 中的字段，需要参数 slug_field 中指定字段名称。
@@ -119,8 +119,8 @@ class BaseArticleSerializer(serializers.Serializer):
 
 # 3.depth, 相当于嵌套序列化
 # depth = 1
-# 4.serializers.SerializerMethodField() # 实现特定方法
-# count = serializers.SerializerMethodField()
+# 4.# count = serializers.SerializerMethodField()
+# serializers.SerializerMethodField() # 实现特定方法
 #     class Meta:
 #         model = Article
 #         fields = ('id', 'title', 'num', 'content', 'category', 'count')
